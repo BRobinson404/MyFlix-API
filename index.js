@@ -1,11 +1,54 @@
 const express = require('express'),
-  morgan = require('morgan');
+      morgan = require('morgan');
 
 const app = express(); // Create an Express app instance
 
 app.use(morgan('common')); // Use the 'common' format of Morgan middleware for logging HTTP request details to the console
 
 app.use(express.static('public')); // Serve static files from the 'public' directory using Express static middleware
+
+let topMovies =  [
+  {
+  "title": "The Shawshank Redemption",
+  "director": "Frank Darabont"
+  },
+  {
+  "title": "The Godfather",
+  "director": "Francis Ford Coppola"
+  },
+  {
+  "title": "The Godfather: Part II",
+  "director": "Francis Ford Coppola"
+  },
+  {
+  "title": "The Dark Knight",
+  "director": "Christopher Nolan"
+  },
+  {
+  "title": "Schindler's List",
+  "director": "Steven Spielberg"
+  },
+  {
+  "title": "Pulp Fiction",
+  "director": "Quentin Tarantino"
+  },
+  {
+  "title": "Fight Club",
+  "director": "David Fincher"
+  },
+  {
+  "title": "Forrest Gump",
+  "director": "Robert Zemeckis"
+  },
+  {
+  "title": "Star Wars: Episode V - The Empire Strikes Back",
+  "director": "Irvin Kershner"
+  },
+  {
+  "title": "The Lord of the Rings: The Return of the King",
+  "director": "Peter Jackson"
+  }
+  ]
 
 app.get('/', (req, res) => {
   res.send('Welcome to my app!'); // Define a route for the root URL ('/') that sends a 'Welcome to my app!' response when accessed with a GET request
