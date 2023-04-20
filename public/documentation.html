@@ -3,15 +3,90 @@
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=<device-width>, initial-scale=1.0">
-    <title>Document</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Documentation</title>
+    <style>
+        table, th, td {
+          border: 1px solid;
+          padding: 5px;
+          margin: 1px;
+          text-align: left;
+        };
+    </style>
 </head>
 <body>
-    <h1>MyFlix Application</h1>
-    <h2>Objective: </h2>
-    <p>To build the server-side component of a “movies” web application. The web
-        application will provide users with access to information about different
-        movies, directors, and genres. Users will be able to sign up, update their
-        personal information, and create a list of their favorite movies.</p>
+    <h1>Documentation Page</h1>
+    <h4>INSTRUCTIONS:</h4>
+        <p>This app is designed to navigate you through some of the best movies ever made!</p>
+        <p>Here you will find information on how to access the API to get the Titles, Directors and genres </p>
+        <p>You can also register, update your personal info, and create your own list of favorite movies. </p>
+    <h4>ENDPOINT DOCUMENTATION:</h4>
+    <table>
+        <thead>
+            <tr>
+                <th>Request</th>
+                <th>URL</th>
+                <th>HTTP Method</th>
+                <th>Response</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Return a list of ALL movies to the user</td>
+                <td>/movies</td>
+                <td>GET</td>
+                <td>a JSON object holding data about all movies</td>
+            </tr>
+            <tr>
+                <td>Return data (description, genre, director, image URL, whether it’s featured or not) about a single movie by title to the user</td>
+                <td>/movies/Title</td>
+                <td>GET</td>
+                <td>a JSON object holding data about a single movie containing the data above</td>
+            </tr>
+            <tr>
+                <td>Return data about a genre (description) by name/title (e.g., “Thriller”)</td>
+                <td>/movies/Genre/Genrename</td>
+                <td>GET</td>
+                <td>JSON object holding data about genre</td>
+            </tr>
+            <tr>
+                <td>Return data about a director (bio and oscar nominations ) by name</td>
+                <td>/movies/Directors/Directorname</td>
+                <td>GET</td>
+                <td>JSON object holding data about director</td>
+            </tr>
+            <tr>
+                <td>Allow new users to register</td>
+                <td>/users</td>
+                <td>POST</td>
+                <td>Returns New User .JSON and logs New User Created</td>
+            </tr>
+            <tr>
+                <td>Allow users to update their user info (username)</td>
+                <td>/users/id</td>
+                <td>PUT</td>
+                <td>returns .JSON with updated information and logs Username Updated</td>
+            </tr>
+            <tr>
+                <td>Allow users to add a movie to their list of favorites (showing only a text that a movie has been added)</td>
+                <td>/users/id/favoriteMovieTitle</td>
+                <td>POST</td>
+                <td>a text message that movie was added to favorite list</td>
+            </tr>
+            <tr>
+                <td>Allow users to remove a movie from their list of favorites (showing only a text that a movie has been removed)</td>
+                <td>/users/id/favoriteMovieTitle
+                </td>
+                <td>DELETE</td>
+                <td>text message that movie was removed from favorites list</td>
+            </tr>
+            <tr>
+                <td>Allow existing users to deregister (showing only a text that a user email has been removed)</td>
+                <td>/users/id</td>
+                <td>DELETE</td>
+                <td>a text message indicating successfull deletion of the user account</td>
+            </tr>
+        </tbody>
+    </table>
 </body>
 </html>
