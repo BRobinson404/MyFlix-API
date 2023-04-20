@@ -181,31 +181,145 @@ let users = [
     favoritesList: ["The Shawshank Redemption"]
   },
   {
+    id:"2",
+    name: "JaneDoe",
+    favoritesList: ["The Lord of the Rings: The Return of the King"]
   },
   {
-  "title": "The Lord of the Rings: The Return of the King",
-  "director": "Peter Jackson"
+    id:"3",
+    name: "MooVguy",
+    favoritesList: []
   }
-  ]
+];
+
+
+app.get('/documentation', (req, res) => {                  
+  console.log('Documentation Request');
+  res.sendFile('public/Documentation.html', {root: __dirname});
+});
 
 app.get('/', (req, res) => {
-  res.send('Welcome to my app!'); // Define a route for the root URL ('/') that sends a 'Welcome to my app!' response when accessed with a GET request
+  console.log('Welcome to myFlix');
+  res.send('Welcome to myFlix!');
 });
 
 app.get('/movies', (req, res) => {
-    res.json(topMovies); // Define a route for the '/movies' URL that sends a JSON response of `topMovies` when accessed with a GET request.
+  res.status(200).json(movies);
+  console.log('Movies request');
 });
 
-app.get('/documentation', (req, res) => {                  
-  res.sendFile('public/documentation.html', { root: __dirname }); // Define a route for the '/documentation' URL that sends the 'documentation.html' file from the 'public' directory as a response when accessed with a GET request.
-
+app.get('/movies/:title', (req, res) => {
+  const {title} = req.params;
+  const movie = movies.find(movie => movie.title === title);
+  
+  if (movie) {
+    res.status(200).json(movie);
+  } else{
+    res.status(400).send('no such movie')
+  }
 });
 
-app.listen(8080, () => {
-  console.log('Your app is listening on port 8080.');// Listen for incoming requests on port 8080
+app.get('/movies/genre/:genreName', (req, res) => {
+  const {genreName} = req.params;
+  const genre = movies.find(movie => movie.genre.name === genreName).genre;
+  
+  if (genre) {
+    res.status(200).json(genre);
+  } else{
+    res.status(400).send('no such genre')
+  }
 });
 
+app.get('/movies/director/:directorName',(req,res)=>{
+  const {directorName} =req.params;
+  const director = movies.find(movie => movie.director.name === directorName).director;
+ 
+  if (director){
+      res.status(200).json(director);
+  }else{
+      res.status(400).send('no such director found');
+  }
+});
+
+
+//CREATE
+app.post('/users', (req,res) => {
+  const newUser = req.body;
+
+  if (newUser.name) {
+    newUser.id = uuid.v4();
+    users.push(newUser);
+    res.status(201).json(newUser);
+    console.log('New User Created!');
+    }
+    else {
+      res.status(400).send('new user not found')
+    }
+});
+
+app.post('/users/:id/:favoriteMovieTitle', (req,res)=>{
+  const{id, favoriteMovieTitle}=req.params;
+
+  let user=users.find(user=>user.id == id);
+
+  if(user){
+      user.favoritesList.push(favoriteMovieTitle);
+      res.status(201).send('movie added to your favorites list');
+      console.log(favoriteMovieTitle);
+  }else{
+      res.status(400).send('movie not added');
+  }
+});
+
+
+//UPDATE
+app.put('/users/:id', (req, res)=>{
+  const {id}=req.params;
+  const userUpdate=req.body;
+
+  let user=users.find(user=>user.id === id);
+
+  if(user){
+      user.name=userUpdate.name;
+      res.status(201).json(user);
+      console.log('User Name Updated!');
+  }else{
+      res.status(400).send('cannot update');
+  }
+});
+
+
+//DELETE
+app.delete('/users/:id/:favoriteMovieTitle', (req,res)=>{
+  const {id, favoriteMovieTitle} =req.params;
+
+  let user = users.find(user=>user.id ==id);
+
+  if(user){ user.favoritesList=user.favoritesList.filter(title=>title !== favoriteMovieTitle);
+      res.status(201).send('movie was deleted from your favorites');
+  }else{
+      res.status(400).send('movie was not deleted');
+  }
+});
+
+app.delete('/users/:id', (req, res) => {
+  const {id} = req.params;
+  
+  let user = users.find(user => user.id === id );
+
+  if (user) {
+    users = users.filter(user => user.id !== req.params.id);
+    res.status(201).send('User account ' + req.params.id + ' was deleted.');
+  }
+});
+
+
+// Morgan middleware error handling function
 app.use((err, req, res, next) => {
-    console.error(err.stack);
-    res.status(500).send('Something broke!'); // Define an error handling middleware that catches any errors that occur during the request handling process.
+  console.error(err.stack);
+  res.status(500).send('Error');
+});
+// listen for requests on port8080
+app.listen(8080, () => {
+  console.log('App is listening on port 8080');
 });
