@@ -1,5 +1,8 @@
 const express = require('express'),
       morgan = require('morgan');
+      morgan = require('morgan'),
+      bodyParser = require('body-parser'),
+      uuid = require('uuid');
 
 const app = express(); // Create an Express app instance
 
@@ -8,6 +11,7 @@ app.use(morgan('common')); // Use the 'common' format of Morgan middleware for l
 app.use(express.static('public')); // Serve static files from the 'public' directory using Express static middleware
 
 let topMovies =  [
+app.use(bodyParser.json());
   {
   "title": "The Shawshank Redemption",
   "director": "Frank Darabont"
