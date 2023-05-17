@@ -8,6 +8,7 @@ const path = require("path");
 const mongoose = require('mongoose');
 const Models = require('./models.js');
 
+
 const Movies = Models.Movie;
 const Users = Models.User;
 
@@ -18,6 +19,8 @@ const accessLogStream = fs.createWriteStream(path.join(__dirname, 'log.txt'), {f
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
 app.use(morgan('common', {stream: accessLogStream}));
 app.use(express.static('public'));
