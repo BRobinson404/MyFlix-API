@@ -52,3 +52,14 @@
 ::1 - - [16/May/2023:17:15:54 +0000] "PUT /users/janedoe/ HTTP/1.1" 500 43
 ::1 - - [16/May/2023:17:20:53 +0000] "PUT /users/janedoe HTTP/1.1" 500 43
 ::1 - - [16/May/2023:17:23:26 +0000] "PUT /users/janedoe HTTP/1.1" 500 43
+::1 - - [17/May/2023:20:49:36 +0000] "PUT /users/janedoe HTTP/1.1" 500 43
+::1 - - [17/May/2023:20:51:26 +0000] "GET /users/janedoe HTTP/1.1" 200 219
+::1 - - [17/May/2023:20:54:40 +0000] "GET /movies/ HTTP/1.1" 200 7481
+::1 - - [17/May/2023:20:54:53 +0000] "PUT /users/janedoe HTTP/1.1" 500 43
+::1 - - [17/May/2023:20:55:02 +0000] "GET /users/janedoe HTTP/1.1" 200 219
+::1 - - [17/May/2023:21:00:31 +0000] "PUT /users/janedoe HTTP/1.1" 500 43
+::1 - - [17/May/2023:21:02:57 +0000] "PUT /users/janedoe HTTP/1.1" 200 219
+::1 - - [17/May/2023:21:10:30 +0000] "POST /users/newguy/movies/644e30cd4e9ad1764628397b HTTP/1.1" 200 199
+::1 - - [17/May/2023:21:12:07 +0000] "DELETE /users/newguy/movies/644e30cd4e9ad1764628397b HTTP/1.1" 500 43
+::1 - - [17/May/2023:21:13:49 +0000] "DELETE /users/newguy/movies/644e30cd4e9ad1764628397b HTTP/1.1" 200 173
+::1 - - [17/May/2023:21:15:06 +0000] "DELETE /users/newguy HTTP/1.1" 200 19
