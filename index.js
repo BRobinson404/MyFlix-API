@@ -172,16 +172,16 @@ app.delete('/users/:Username', (req, res) => {
 
 
 // Get all movies
-app.get('/movies', (req, res) => {
+app.get('/movies', passport.authenticate('jwt', { session: false }), (req, res) => {
   Movies.find()
     .then((movies) => {
-      res.status(200).json(movies);
+      res.status(201).json(movies);
     })
-    .catch((err) => {
-      console.error(err);
-      res.status(500).send('Error: ' + err);
+    .catch((error) => {
+      console.error(error);
+      res.status(500).send('Error: ' + error);
     });
-});  
+});
 
 
 // Get a movie by title
