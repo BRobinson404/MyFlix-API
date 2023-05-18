@@ -31,6 +31,17 @@ app.get('/', (req, res) => {
 res.send('Welcome to my movie API!');
 });
 
+// Create USER via object array.
+
+// Expected format for crerating/updating user information:
+
+// {
+//   "Username": "string",
+//   "Password": "string",
+//   "Email": "string",
+//   "Birthday": "Date" "YYYY-MM-DD"
+// }
+
 app.post('/users', (req, res) => {
   Users.findOne({ Username: req.body.Username })
     .then((user) => {
@@ -79,6 +90,16 @@ app.get('/users/:Username', (req, res) => {
       res.status(500).send('Error: ' + err);
     });
 });
+
+// Update user info by Username
+// Expected format for crerating/updating user information:
+
+// {
+//   "Username": "string",
+//   "Password": "string",
+//   "Email": "string",
+//   "Birthday": "Date" "YYYY-MM-DD"
+// }
 
 app.put('/users/:Username', (req, res) => {
   Users.findOneAndUpdate({ Username: req.params.Username }, { $set:
