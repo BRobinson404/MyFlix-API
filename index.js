@@ -12,18 +12,19 @@ const Models = require('./models.js');
 const Movies = Models.Movie;
 const Users = Models.User;
 
-//Integrating Mongoose with RESTAPI cfDB is the name od Database with movies and users
+//Integrating Mongoose with REST API, cfDB is the name od Database with movies and users
 mongoose.connect('mongodb://127.0.0.1:27017/cfDB', { useNewUrlParser: true, useUnifiedTopology: true });
 
 const accessLogStream = fs.createWriteStream(path.join(__dirname, 'log.txt'), {flags: 'a'})
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
 
 app.use(morgan('common', {stream: accessLogStream}));
 app.use(express.static('public'));
+let auth = require('./auth')(app);
+const passport = require('passport');
+require('./passport');
 
 // GET requests
 app.get('/', (req, res) => {
