@@ -8,6 +8,7 @@ const path = require("path");
 const mongoose = require('mongoose');
 const Models = require('./models');
 
+const { check, validationResult } = require('express-validator');
 
 const Movies = Models.Movie;
 const Users = Models.User;
