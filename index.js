@@ -22,6 +22,8 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 app.use(morgan('common', {stream: accessLogStream}));
 app.use(express.static('public'));
+const cors = require('cors');
+app.use(cors());
 let auth = require('./auth')(app);
 const passport = require('passport');
 require('./passport');
