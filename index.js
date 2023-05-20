@@ -7,7 +7,6 @@ const fs = require("fs");
 const path = require("path");
 const mongoose = require('mongoose');
 const Models = require('./models');
-
 const { check, validationResult } = require('express-validator');
 
 const Movies = Models.Movie;
@@ -34,9 +33,9 @@ app.get('/', (req, res) => {
 res.send('Welcome to my movie API!');
 });
 
-// Create USER via object array.
+// Create USER via JSON object in the body.
 
-// Expected format for crerating/updating user information:
+// Expected format for creating/updating user information:
 
 // {
 //   "Username": "string",
