@@ -28,7 +28,18 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(morgan('common', {stream: accessLogStream}));
 app.use(express.static('public'));
 const cors = require('cors');
-app.use(cors());
+let allowedOrigins = ['http://localhost:8080', 'http://localhost:1234', 'https://myflix404.netlify.app'];
+
+app.use(cors({
+  origin: (origin, callback) => {
+    if (!origin) return callback(null, true);
+    if (allowedOrigins.indexOf(origin) === -1) { // If a specific origin isn’t found on the list of allowed origins
+      let message = 'The CORS policy for this application doesn’t allow access from origin ' + origin;
+      return callback(new Error(message), false);
+    }
+    return callback(null, true);
+  }
+}));
 let auth = require('./auth')(app);
 const passport = require('passport');
 require('./passport');
@@ -51,7 +62,7 @@ res.send('Welcome to my movie API!');
 
 app.post('/users',
 [
-  check('Username', 'Username is required').isLength({min: 3}),
+  check('Username', 'Username is required and must be more than 3 alphanumeric characters').isLength({min: 3}),
   check('Username', 'Username contains non alphanumeric characters - not allowed.').isAlphanumeric(),
   check('Password', 'Password is required').not().isEmpty(),
   check('Email', 'Email does not appear to be valid').isEmail()
