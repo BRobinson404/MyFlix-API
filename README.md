@@ -1,4 +1,4 @@
-# Movie API
+# myFlix API
 
 ## Table of Contents
 - [Introduction](#introduction)
