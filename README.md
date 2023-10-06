@@ -64,6 +64,20 @@ The API uses JWT (JSON Web Tokens) for authentication. To access protected endpo
 - **Authentication:** Requires a valid JWT token.
 - **Response:** Returns a success message or an error message.
 
+#### Add a Movie to User's Favorites
+
+- **Endpoint:** `POST /users/:Username/movies/:MovieID`
+- **Description:** Add a movie to a user's list of favorite movies.
+- **Authentication:** Requires a valid JWT token.
+- **Response:** Returns the updated user object.
+
+#### Remove a Movie from User's Favorites
+
+- **Endpoint:** `DELETE /users/:Username/movies/:MovieID`
+- **Description:** Remove a movie from a user's list of favorite movies.
+- **Authentication:** Requires a valid JWT token.
+- **Response:** Returns the updated user object.
+
 ### Movies
 
 #### Get All Movies
