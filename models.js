@@ -1,6 +1,21 @@
 const { default: mongoose } = require("mongoose");
 const bcrypt = require('bcrypt');
 
+let movieSchema = mongoose.Schema({
+  Title: {type: String, required: true},
+  Description: {type: String, required: true},
+  Genre: {
+      Name: String,
+      Description: String
+  },
+  Director: {
+      Name: String,
+      Bio: String
+  },
+  Actors: [String],
+  ImagePath: String,
+  Feautured: Boolean
+});
 /**
  * Defines the movie schema for MongoDB.
  *
@@ -17,7 +32,13 @@ const bcrypt = require('bcrypt');
  * @property {string} ImagePath - The path to the movie's image.
  * @property {boolean} Featured - Indicates if the movie is featured.
  */
-
+let userSchema = mongoose.Schema({
+  Username: {type: String, required: true},
+  Password: {type: String, required: true},
+  Email: {type: String, required: true},
+  Birthday: Date,
+  FavoriteMovies: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Movie' }]
+});
 /**
  * Defines the user schema for MongoDB.
  *
