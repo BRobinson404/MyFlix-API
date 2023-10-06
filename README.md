@@ -10,7 +10,7 @@
   
 ## Introduction
 
-Welcome to the Movie API, a RESTful API for managing movies and user accounts. This API allows you to perform various operations related to movies and user profiles.
+Welcome to the myFlix API, a RESTful API for managing movies and user accounts. This API allows you to perform various operations related to movies and user profiles.
 
 ## Authentication
 
