@@ -1,85 +1,141 @@
-# MyFlix
-# myFlix-client
+# myFlix API
 
-<h1>What is it?</h1> <br>
+## Table of Contents
+- [Introduction](#introduction)
+- [Authentication](#authentication)
+- [Endpoints](#endpoints)
+- [Request and Response Formats](#request-and-response-formats)
+- [Error Handling](#error-handling)
+- [Getting Started](#getting-started)
+  
+## Introduction
 
-myFlix is a movie wiki website. It's a single-page, responsive app with routing, rich interactions, several interface views,
-and a smooth user experience. Movie enthusiasts like to be able to access information about different movies,
-whenever they want to. myFlix users will be able to use it whenever they want to read and save information
-about different movies. With myFlix, having the ability to save a list of their favorite movies will ensure
-users always have access to the films they want to watch or recommend to their peers.
-<br>
-<br>
+Welcome to the Movie API, a RESTful API for managing movies and user accounts. This API allows you to perform various operations related to movies and user profiles.
 
-**[Click here for the LIVE VIEW of myFlix](https://myflix404.netlify.app/) "myFlix live view link")**
+## Authentication
 
-This is the client side to  [this RESTful movie API](https://github.com/BRobinson404/MyFlix) "this RESTful movie API"), both together built with the **MERN** stack
+The API uses JWT (JSON Web Tokens) for authentication. To access protected endpoints, you need to include a valid JWT token in the `Authorization` header of your HTTP requests.
 
-<h1>User Stories</h1>
-● As a user, I want to be able to access information about  movies I’ve watched or am interested in.<br>
-● As a user, I want to be able to create a profile so I can save data about my favorite movies.<br>
+## Endpoints
 
-<h1>Essential Views & Features</h1>
-<h2>Main view</h2>
+### Users
 
-![mainview](https://github.com/BRobinson404/MyFlix-client/assets/122922678/a1cb6138-6914-4b5f-8b85-fe311d01e531)
+#### Create a New User
 
+- **Endpoint:** `POST /users`
+- **Description:** Create a new user by providing user details in the request body.
+- **Request Body:**
+  - `Username` (string, required): The username for the new user.
+  - `Password` (string, required): The user's password.
+  - `Email` (string, required): The user's email address.
+  - `Birthday` (string): The user's birthdate (optional).
+- **Response:** Returns the created user object.
 
-● Returns ALL movies to the user (each movie item with an image and title)<br>
-● Ability to select a movie for more details<br>
-● Ability to log out<br>
-● Ability to navigate to Profile view<br>
-● Filtering the list of movies with a “filter genre” feature:<br>
+#### Get All Users
 
+- **Endpoint:** `GET /users`
+- **Description:** Retrieve a list of all users.
+- **Authentication:** Requires a valid JWT token.
+- **Response:** Returns an array of user objects.
 
-<h2>Login view</h2>
+#### Get User by Username
 
+- **Endpoint:** `GET /users/:Username`
+- **Description:** Retrieve user details by username.
+- **Authentication:** Requires a valid JWT token.
+- **Response:** Returns the user object for the specified username.
 
-![login](https://github.com/BRobinson404/MyFlix-client/assets/122922678/67de746a-d1eb-4746-8f8e-345ed918f4b5)
+#### Update User Information
 
+- **Endpoint:** `PUT /users/:Username`
+- **Description:** Update user information by username.
+- **Authentication:** Requires a valid JWT token.
+- **Request Body:**
+  - `Username` (string): The new username (optional).
+  - `Password` (string): The new password (optional).
+  - `Email` (string): The new email address (optional).
+  - `Birthday` (string): The new birthdate (optional).
+- **Response:** Returns the updated user object.
 
-● Allows users to log in with a username and password
+#### Delete User
 
-<h2>Signup view</h2>
+- **Endpoint:** `DELETE /users/:Username`
+- **Description:** Delete a user by username.
+- **Authentication:** Requires a valid JWT token.
+- **Response:** Returns a success message or an error message.
 
+#### Add a Movie to User's Favorites
 
-![signup](https://github.com/BRobinson404/MyFlix-client/assets/122922678/f0fd9fca-0840-41f1-b92b-64679c10ce8e)
+- **Endpoint:** `POST /users/:Username/movies/:MovieID`
+- **Description:** Add a movie to a user's list of favorite movies.
+- **Authentication:** Requires a valid JWT token.
+- **Response:** Returns the updated user object.
 
+#### Remove a Movie from User's Favorites
 
-● Allows new users to register (username, password, email, date of birth)<br>
+- **Endpoint:** `DELETE /users/:Username/movies/:MovieID`
+- **Description:** Remove a movie from a user's list of favorite movies.
+- **Authentication:** Requires a valid JWT token.
+- **Response:** Returns the updated user object.
 
-<h2>Profile view</h2>
+### Movies
 
-![profile](https://github.com/BRobinson404/MyFlix-client/assets/122922678/471e63ca-0fe3-4c6f-9634-372743e8b55a)
+#### Get All Movies
 
+- **Endpoint:** `GET /movies`
+- **Description:** Retrieve a list of all movies.
+- **Authentication:** Requires a valid JWT token.
+- **Response:** Returns an array of movie objects.
 
-● Displays user registration details<br>
-● Allows users to update their info (username, password, email, date of birth)<br>
-● Displays favorite movies<br>
-● Allows users to remove a movie from their list of favorites<br>
-● Allows existing users to deregister<br>
+#### Get Movie by Title
 
-<h2>Single Movie view</h2>
+- **Endpoint:** `GET /movies/:Title`
+- **Description:** Retrieve movie details by title.
+- **Authentication:** Requires a valid JWT token.
+- **Response:** Returns the movie object for the specified title.
 
-![moviecard](https://github.com/BRobinson404/MyFlix-client/assets/122922678/069a0675-99ca-4007-8cb2-67c618e3ac82)
+#### Create a New Movie
 
+- **Endpoint:** `POST /movies`
+- **Description:** Create a new movie by providing movie details in the request body.
+- **Request Body:**
+  - `Title` (string, required): The title of the movie.
+  - `Description` (string): A brief description of the movie (optional).
+  - `Genre` (object): The genre information for the movie.
+  - `Director` (object): The director information for the movie.
+  - `Actors` (array of strings): An array of actor names in the movie.
+  - `ImagePath` (string): The path to the movie's image (optional).
+  - `Featured` (boolean): Indicates if the movie is featured (optional).
+- **Response:** Returns the created movie object.
 
-● Returns data (description, genre, director, image) about a single movie to the user
+#### Update Movie by Title
 
-<h1>Languages, Libraries, Frameworks, etc.</h1>
-● HTML <br>
-● SCSS<br>
-● Javascript/JSX<br>
-● MERN Stack (MongoDB, Express, React, Node.js) - Server and Client side<br>
-● Bootstrap & React Bootstrap<br>
-Technical Requirements<br>
-● Uses parcel as a build tool<br>
-● Hosted on Netlify<br>
-● API is hosted on Heroku<br>
-● Written using the React library in ES2015+<br>
-● Uses Bootstrap as a UI library for styling and responsiveness<br>
-<h2>Author</h2>
- 
-<h3>Blake Robinson</h3>
-See me on Github https://github.com/BRobinson404
+- **Endpoint:** `PUT /movies/:Title`
+- **Description:** Update movie information by title.
+- **Authentication:** Requires a valid JWT token.
+- **Request Body:** Same as the request body for creating a movie.
+- **Response:** Returns the updated movie object.
+
+#### Delete Movie by Title
+
+- **Endpoint:** `DELETE /movies/:Title`
+- **Description:** Delete a movie by title.
+- **Authentication:** Requires a valid JWT token.
+- **Response:** Returns a success message or an error message.
+
+## Request and Response Formats
+
+For detailed information on request and response formats for each endpoint, please refer to the specific endpoint descriptions above.
+
+## Error Handling
+
+In case of errors, the API will respond with appropriate HTTP status codes and error messages. Make sure to handle errors gracefully in your client applications.
+
+## Getting Started
+
+1. Clone the repository.
+2. Install the required dependencies.
+3. Configure the environment variables, including the JWT secret and database URI.
+4. Start the server.
+5. Use the API endpoints to interact with movies and user data.
 
